@@ -1,0 +1,335 @@
+{
+  "entities": {
+    "UserProfile": {
+      "title": "UserProfile",
+      "description": "Registered student or security personnel profile without sensitive PII",
+      "type": "object",
+      "properties": {
+        "uid": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 128,
+          "pattern": "^[a-zA-Z0-9_\\-]+$"
+        },
+        "displayName": {
+          "type": "string",
+          "minLength": 2,
+          "maxLength": 100
+        },
+        "studentId": {
+          "type": "string",
+          "minLength": 3,
+          "maxLength": 32,
+          "pattern": "^[a-zA-Z0-9_\\-]+$"
+        },
+        "department": {
+          "type": "string",
+          "minLength": 2,
+          "maxLength": 80
+        },
+        "role": {
+          "type": "string",
+          "enum": ["student", "admin"]
+        },
+        "createdAt": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "updatedAt": {
+          "type": "string",
+          "format": "date-time"
+        }
+      },
+      "required": ["uid", "displayName", "studentId", "department", "role", "createdAt", "updatedAt"]
+    },
+    "UserPrivateInfo": {
+      "title": "UserPrivateInfo",
+      "description": "Isolated PII for a registered student or security personnel",
+      "type": "object",
+      "properties": {
+        "uid": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 128,
+          "pattern": "^[a-zA-Z0-9_\\-]+$"
+        },
+        "email": {
+          "type": "string",
+          "maxLength": 160
+        },
+        "phone": {
+          "type": "string",
+          "minLength": 6,
+          "maxLength": 30
+        },
+        "commuteRoute": {
+          "type": "string",
+          "maxLength": 160
+        },
+        "updatedAt": {
+          "type": "string",
+          "format": "date-time"
+        }
+      },
+      "required": ["uid", "email", "phone", "commuteRoute", "updatedAt"]
+    },
+    "TrustedContact": {
+      "title": "TrustedContact",
+      "description": "Trusted emergency contact for a student",
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 128,
+          "pattern": "^[a-zA-Z0-9_\\-]+$"
+        },
+        "ownerUid": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 128,
+          "pattern": "^[a-zA-Z0-9_\\-]+$"
+        },
+        "name": {
+          "type": "string",
+          "minLength": 2,
+          "maxLength": 100
+        },
+        "relationship": {
+          "type": "string",
+          "minLength": 2,
+          "maxLength": 50
+        },
+        "phone": {
+          "type": "string",
+          "minLength": 6,
+          "maxLength": 30
+        },
+        "email": {
+          "type": "string",
+          "maxLength": 160
+        },
+        "notifyOnSos": {
+          "type": "boolean"
+        },
+        "createdAt": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "updatedAt": {
+          "type": "string",
+          "format": "date-time"
+        }
+      },
+      "required": ["id", "ownerUid", "name", "relationship", "phone", "email", "notifyOnSos", "createdAt", "updatedAt"]
+    },
+    "IncidentReport": {
+      "title": "IncidentReport",
+      "description": "Campus emergency or SOS incident report with automated priority classification and escalation workflow",
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 128,
+          "pattern": "^[a-zA-Z0-9_\\-]+$"
+        },
+        "reporterUid": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 128,
+          "pattern": "^[a-zA-Z0-9_\\-]+$"
+        },
+        "reporterName": {
+          "type": "string",
+          "minLength": 2,
+          "maxLength": 100
+        },
+        "reporterStudentId": {
+          "type": "string",
+          "minLength": 3,
+          "maxLength": 32
+        },
+        "category": {
+          "type": "string",
+          "enum": [
+            "Medical Emergency",
+            "Harassment / Stalking",
+            "Suspicious Activity",
+            "Late-Night Travel / Escort Needed",
+            "Physical Threat / Assault",
+            "Accident / Infrastructure Hazard"
+          ]
+        },
+        "description": {
+          "type": "string",
+          "minLength": 5,
+          "maxLength": 1000
+        },
+        "sectorId": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 64,
+          "pattern": "^[a-zA-Z0-9_\\-]+$"
+        },
+        "sectorName": {
+          "type": "string",
+          "minLength": 2,
+          "maxLength": 120
+        },
+        "simulatedLat": {
+          "type": "number"
+        },
+        "simulatedLng": {
+          "type": "number"
+        },
+        "coordinatesShared": {
+          "type": "boolean"
+        },
+        "isSos": {
+          "type": "boolean"
+        },
+        "isLateNight": {
+          "type": "boolean"
+        },
+        "isAlone": {
+          "type": "boolean"
+        },
+        "priority": {
+          "type": "string",
+          "enum": ["Critical", "High", "Medium", "Low"]
+        },
+        "priorityScore": {
+          "type": "number"
+        },
+        "status": {
+          "type": "string",
+          "enum": ["Reported", "Acknowledged", "Dispatched", "Resolved"]
+        },
+        "responseCategory": {
+          "type": "string",
+          "maxLength": 120
+        },
+        "escalationTier": {
+          "type": "string",
+          "maxLength": 80
+        },
+        "nextActionStudent": {
+          "type": "string",
+          "maxLength": 400
+        },
+        "nextActionResponder": {
+          "type": "string",
+          "maxLength": 400
+        },
+        "notifiedContactNames": {
+          "type": "array"
+        },
+        "assignedUnit": {
+          "type": "string",
+          "maxLength": 100
+        },
+        "responderNotes": {
+          "type": "string",
+          "maxLength": 500
+        },
+        "createdAt": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "updatedAt": {
+          "type": "string",
+          "format": "date-time"
+        }
+      },
+      "required": [
+        "id",
+        "reporterUid",
+        "reporterName",
+        "reporterStudentId",
+        "category",
+        "description",
+        "sectorId",
+        "sectorName",
+        "simulatedLat",
+        "simulatedLng",
+        "coordinatesShared",
+        "isSos",
+        "isLateNight",
+        "isAlone",
+        "priority",
+        "priorityScore",
+        "status",
+        "responseCategory",
+        "escalationTier",
+        "nextActionStudent",
+        "nextActionResponder",
+        "notifiedContactNames",
+        "assignedUnit",
+        "responderNotes",
+        "createdAt",
+        "updatedAt"
+      ]
+    },
+    "SafetyCheckin": {
+      "title": "SafetyCheckin",
+      "description": "Simulated campus sector safety check-in log",
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 128,
+          "pattern": "^[a-zA-Z0-9_\\-]+$"
+        },
+        "uid": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 128,
+          "pattern": "^[a-zA-Z0-9_\\-]+$"
+        },
+        "sectorId": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 64,
+          "pattern": "^[a-zA-Z0-9_\\-]+$"
+        },
+        "sectorName": {
+          "type": "string",
+          "minLength": 2,
+          "maxLength": 120
+        },
+        "safetyScore": {
+          "type": "number"
+        },
+        "createdAt": {
+          "type": "string",
+          "format": "date-time"
+        }
+      },
+      "required": ["id", "uid", "sectorId", "sectorName", "safetyScore", "createdAt"]
+    }
+  },
+  "firestore": {
+    "/users/{userId}": {
+      "schema": { "$ref": "#/entities/UserProfile" },
+      "description": "Public-safe user profile storing displayName, studentId, department, and role"
+    },
+    "/users/{userId}/private/{docId}": {
+      "schema": { "$ref": "#/entities/UserPrivateInfo" },
+      "description": "Isolated PII document storing email, phone, and commute route"
+    },
+    "/users/{userId}/contacts/{contactId}": {
+      "schema": { "$ref": "#/entities/TrustedContact" },
+      "description": "Trusted emergency contacts belonging to a student"
+    },
+    "/incidents/{incidentId}": {
+      "schema": { "$ref": "#/entities/IncidentReport" },
+      "description": "Campus SOS and emergency incident reports with priority and escalation metadata"
+    },
+    "/safetyCheckins/{checkinId}": {
+      "schema": { "$ref": "#/entities/SafetyCheckin" },
+      "description": "Student campus sector safety check-in records"
+    }
+  }
+}

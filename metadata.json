@@ -1,0 +1,6 @@
+{
+  "name": "CampusShield",
+  "description": "University Campus Safety System enabling students to trigger emergency SOS alerts, manage trusted contacts, share simulated campus coordinates, and allowing security personnel to monitor, classify, escalate, and respond to incidents.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
